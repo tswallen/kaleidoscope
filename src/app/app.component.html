@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="py-3 text-center">
+    <h5>Prodromal Questionnaire</h5>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form
+      [form]="form"
+      [model]="model"
+      [fields]="fields"
+      [options]="options"
+    >
+    </formly-form>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+
+    <button class="btn btn-danger" type="reset">Reset</button>
+  </form>
+</div>
