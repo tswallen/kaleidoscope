@@ -8,6 +8,7 @@ import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 import { AppComponent } from './app.component';
 import { FormsModule } from './forms/forms.module';
 import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     }),
     FormsModule
   ],
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, HomeComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
