@@ -7,9 +7,11 @@ import { QpeComponent } from './qpe/qpe.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
+import { FormsRoutingModule } from './forms-routing.module';
 
 @NgModule({
   imports: [
+    FormsRoutingModule,
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
