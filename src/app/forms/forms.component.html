@@ -1,0 +1,11 @@
+<div class="row gx-3">
+  <div class="card col col-md-4" *ngFor="let form of forms">
+    <div class="card-body">
+      <h5 class="card-title">{{ form.title }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ form.time }} min</h6>
+      <p class="card-text">{{ form.description }}</p>
+      <a href="#" class="card-link" routerLink="/forms/{{ form.link }}">Start now</a>
+      <a href="{{ form.learnMoreLink }}" class="card-link">Learn more</a>
+    </div>
+  </div>
+</div>

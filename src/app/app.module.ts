@@ -6,9 +6,12 @@ import {FormlyModule} from '@ngx-formly/core';
 import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
 
 import { AppComponent } from './app.component';
+import { FormsModule } from './forms/forms.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  imports: [ 
+  imports: [
+    AppRoutingModule,
     BrowserModule,
     ReactiveFormsModule,
     FormlyBootstrapModule,
@@ -17,6 +20,7 @@ import { AppComponent } from './app.component';
         { name: 'required', message: 'This field is required' },
       ],
     }),
+    FormsModule
   ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ]
