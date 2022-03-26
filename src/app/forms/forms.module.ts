@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormsRoutingModule } from './forms-routing.module';
+import { PdiComponent } from './pdi/pdi.component';
+import { CapsComponent } from './caps/caps.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,7 @@ import { FormsRoutingModule } from './forms-routing.module';
     FormlyBootstrapModule,
     FormlyModule
   ],
-  declarations: [FormsComponent, ProdromalComponent, QpeComponent],
-  exports: [FormsComponent, ProdromalComponent, QpeComponent]
+  declarations: [FormsComponent, ProdromalComponent, QpeComponent, PdiComponent, CapsComponent],
+  exports: [FormsComponent, ProdromalComponent, QpeComponent, PdiComponent, CapsComponent]
 })
 export class FormsModule { }
