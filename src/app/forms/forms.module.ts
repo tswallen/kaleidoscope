@@ -10,6 +10,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormsRoutingModule } from './forms-routing.module';
 import { PdiComponent } from './pdi/pdi.component';
 import { CapsComponent } from './caps/caps.component';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { CapsComponent } from './caps/caps.component';
     FormlyBootstrapModule,
     FormlyModule
   ],
-  declarations: [FormsComponent, ProdromalComponent, QpeComponent, PdiComponent, CapsComponent],
-  exports: [FormsComponent, ProdromalComponent, QpeComponent, PdiComponent, CapsComponent]
+  declarations: [FormsComponent, ProdromalComponent, QpeComponent, PdiComponent, CapsComponent, FormComponent],
+  exports: [FormsComponent, ProdromalComponent, QpeComponent, PdiComponent, CapsComponent, FormComponent]
 })
 export class FormsModule { }
