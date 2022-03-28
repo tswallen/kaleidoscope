@@ -7,6 +7,7 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormsRoutingModule } from './forms-routing.module';
 import { FormComponent } from './form/form.component';
+import { ResultsComponent } from './form/results/results.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { FormComponent } from './form/form.component';
     FormlyBootstrapModule,
     FormlyModule
   ],
-  declarations: [FormsComponent, FormComponent],
-  exports: [FormsComponent, FormComponent]
+  declarations: [FormsComponent, FormComponent, ResultsComponent],
+  exports: [FormsComponent, FormComponent, ResultsComponent]
 })
 export class FormsModule { }

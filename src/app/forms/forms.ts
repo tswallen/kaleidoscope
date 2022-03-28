@@ -34,8 +34,8 @@ export const forms: Form[] = [
             label,
             required: true,
             options: [
-              { value: 1, label: 'True' },
-              { value: 0, label: 'False' },
+              { value: true, label: 'True' },
+              { value: false, label: 'False' },
             ],
           },
         },
@@ -60,9 +60,9 @@ export const forms: Form[] = [
     moreInfoLink: '#',
   },
   {
-    title: 'QPE',
+    title: 'Questionnaire for Psychotic Experiences',
     time: 15,
-    description: 'Lorem Ipsum',
+    description: 'A questionnaire focusing on understanding hallucinations such as visual and auditory as well as delusions.',
     route: 'qpe',
     fields: [
       {
@@ -212,9 +212,9 @@ export const forms: Form[] = [
     moreInfoLink: '#',
   },
   {
-    title: 'PDI',
-    time: 15,
-    description: 'Lorem Ipsum',
+    title: 'Peters Delusions Inventory',
+    time: 10,
+    description: 'Some simple yes and no questions with scales inquiring about thoughts and feelings during psychosis.',
     route: 'pdi',
     fields: [
       'Do you ever feel as if people seem to drop hints about you or say things with a double meaning?',
@@ -248,8 +248,8 @@ export const forms: Form[] = [
             label,
             required: true,
             options: [
-              { value: 1, label: 'True' },
-              { value: 0, label: 'False' },
+              { value: true, label: 'True' },
+              { value: false, label: 'False' },
             ],
           },
         },
@@ -309,9 +309,9 @@ export const forms: Form[] = [
     moreInfoLink: '#',
   },
   {
-    title: 'CAPS',
-    time: 15,
-    description: 'Lorem Ipsum',
+    title: 'Cardiff Anomalous Perceptions Scale',
+    time: 10,
+    description: 'Some simple yes and no questions with scales inquiring about common experiences with psychosis.',
     route: 'caps',
     fields: [
       '1) Do you ever notice that sounds are much louder than they normally would be?',
@@ -356,8 +356,8 @@ export const forms: Form[] = [
             label,
             required: true,
             options: [
-              { value: 1, label: 'True' },
-              { value: 0, label: 'False' },
+              { value: true, label: 'True' },
+              { value: false, label: 'False' },
             ],
           },
         },

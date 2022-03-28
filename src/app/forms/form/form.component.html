@@ -1,7 +1,10 @@
+<ng-container *ngIf="!submitted">
 <div class="container">
 <div class="py-3 text-center">
   <h5>{{ form.title }}</h5>
 </div>
+
+<!-- TODO: Add timer and completion -->
 
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <formly-form
@@ -11,10 +14,17 @@
     [options]="options"
   ></formly-form>
 
-  <button class="btn btn-primary" type="submit" [disabled]="!formGroup.valid">
-    Submit
-  </button>
-
-  <button class="btn btn-danger" type="reset">Reset</button>
+  <div class="row py-3 d-flex justify-content-end">
+    <button class="btn btn-danger mr-3" type="reset">Reset</button>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="!formGroup.valid"
+    >
+      Submit
+    </button>
+  </div>
 </form>
 </div>
+</ng-container>
+<app-results *ngIf="submitted" [model]="model"></app-results>

@@ -15,6 +15,7 @@ export class FormComponent implements OnInit {
   formGroup = new FormGroup({});
   model = {};
   options: FormlyFormOptions = {};
+  submitted: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,11 +29,28 @@ export class FormComponent implements OnInit {
   getFields(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.form = this.formService.getForm(id);
+    if (this.form.fields[this.form.fields.length - 1].key === 'feedback') {
+      return;
+    }
+    this.form.fields.push({
+      className: 'row bg-primary text-light p-3',
+      key: 'feedback',
+      type: 'radio',
+      templateOptions: {
+        label:
+          'Would you please be able to provide feedback on how helpful you found these questions to be?',
+        required: true,
+        options: [
+          { value: true, label: 'Yes' },
+          { value: false, label: 'No' },
+        ],
+      },
+    });
   }
 
   onSubmit() {
     if (this.formGroup.valid) {
-      alert(JSON.stringify(this.model));
+      this.submitted = true;
     }
   }
 }
