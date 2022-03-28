@@ -1,18 +1,20 @@
+<div class="container">
 <div class="py-3 text-center">
-  <h5>Form</h5>
+  <h5>{{ form.title }}</h5>
 </div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <formly-form
-    [form]="form"
+    [form]="formGroup"
     [model]="model"
-    [fields]="fields"
+    [fields]="form.fields"
     [options]="options"
   ></formly-form>
 
-  <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+  <button class="btn btn-primary" type="submit" [disabled]="!formGroup.valid">
     Submit
   </button>
 
   <button class="btn btn-danger" type="reset">Reset</button>
 </form>
+</div>

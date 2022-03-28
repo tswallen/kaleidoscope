@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyFormOptions } from '@ngx-formly/core/lib/core';
-import { pdi } from '../pdi/pdi';
+import { FormService } from '../form.service';
+import { Form } from '../form';
 
 @Component({
   selector: 'app-form',
@@ -10,20 +11,27 @@ import { pdi } from '../pdi/pdi';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  form = new FormGroup({});
+  form: Form;
+  formGroup = new FormGroup({});
   model = {};
   options: FormlyFormOptions = {};
-  labels: string[] = [];
-  fields: FormlyFieldConfig[];
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private formService: FormService
+  ) {}
 
-  ngOnInit() {
-    this.fields = pdi;
+  ngOnInit(): void {
+    this.getFields();
+  }
+
+  getFields(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.form = this.formService.getForm(id);
   }
 
   onSubmit() {
-    if (this.form.valid) {
+    if (this.formGroup.valid) {
       alert(JSON.stringify(this.model));
     }
   }
