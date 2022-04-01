@@ -2,9 +2,10 @@
   <div class="py-3 text-center">
     <h5>Results</h5>
   </div>
-  <p>
-    {{ model | json }}
-  </p>
+  <div class="row bg-light mb-3" *ngFor="let result of results | keyvalue">
+    <h4>Question: {{ result.key }}</h4>
+    <p><strong>Your answer:</strong> {{ result.value }}</p>
+  </div>
   <div class="row py-3 d-flex justify-content-end">
     <button class="btn btn-secondary mr-3" routerLink="">Back to home</button>
     <button class="btn btn-primary" disabled>Download (coming soon)</button>
