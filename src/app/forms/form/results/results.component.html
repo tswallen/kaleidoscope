@@ -3,7 +3,7 @@
     <h5>Results</h5>
   </div>
   <div class="row bg-light mb-3" *ngFor="let result of results | keyvalue">
-    <h4>Question: {{ result.key }}</h4>
+    <h4>Question: <small class="text-muted">{{ result.key }}</small></h4>
     <p><strong>Your answer:</strong> {{ result.value }}</p>
   </div>
   <div class="row py-3 d-flex justify-content-end">
