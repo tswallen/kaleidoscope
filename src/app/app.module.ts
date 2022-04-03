@@ -10,7 +10,7 @@ import { FormsModule } from './forms/forms.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 const config = {
@@ -35,8 +35,7 @@ const config = {
       ],
     }),
     FormsModule,
-    provideFirebaseApp(() => initializeApp(config)),
-    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(config)
   ],
   declarations: [AppComponent, HomeComponent],
   bootstrap: [AppComponent],
