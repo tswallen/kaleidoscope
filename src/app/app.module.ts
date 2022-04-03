@@ -2,13 +2,26 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import {FormlyModule} from '@ngx-formly/core';
-import {FormlyBootstrapModule} from '@ngx-formly/bootstrap';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
 import { AppComponent } from './app.component';
 import { FormsModule } from './forms/forms.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
+
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
+const config = {
+  apiKey: 'AIzaSyCzb76mjJ7VqXDrSjeq74FLtRkIP83rr8o',
+  authDomain: 'kaleidoscope-psychosis.firebaseapp.com',
+  projectId: 'kaleidoscope-psychosis',
+  storageBucket: 'kaleidoscope-psychosis.appspot.com',
+  messagingSenderId: '446067106424',
+  appId: '1:446067106424:web:b28a5a1680324a2720838d',
+  measurementId: 'G-CRZCK7GJDS',
+};
 
 @NgModule({
   imports: [
@@ -21,9 +34,11 @@ import { HomeComponent } from './home/home.component';
         { name: 'required', message: 'This field is required' },
       ],
     }),
-    FormsModule
+    FormsModule,
+    provideFirebaseApp(() => initializeApp(config)),
+    provideFirestore(() => getFirestore()),
   ],
-  declarations: [ AppComponent, HomeComponent ],
-  bootstrap:    [ AppComponent ]
+  declarations: [AppComponent, HomeComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
