@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 const config = {
   apiKey: 'AIzaSyCzb76mjJ7VqXDrSjeq74FLtRkIP83rr8o',
@@ -35,6 +35,7 @@ const config = {
       ],
     }),
     FormsModule,
+    AuthenticationModule,
     AngularFireModule.initializeApp(config)
   ],
   declarations: [AppComponent, HomeComponent],
