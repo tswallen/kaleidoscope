@@ -92,13 +92,9 @@ const feedbackQuestion: FormlyFieldConfig = {
       },
     },
   ],
-  hooks: {
-    onInit: (form: FormGroup) => {
-      /* This field doesnt exist yet so you need to create it */
-      const feedbackConsentControl = form.valueChanges
-        .pipe(startWith(null), pairwise())
-        .subscribe(([prev, next]: [any, any]) => console.log(next));
-    },
+  /* Convert this to a hook */
+  hideExpression: (model: any, formState: any, field: FormlyFieldConfig) => {
+    return !field.form.parent.get('feedbackConsent').value;
   },
 };
 
@@ -128,43 +124,41 @@ export const forms: Form[] = [
         'I often feel that others have it in for me.',
         'I have had the sense that some person or force is around me, even though I could not see anyone.',
         'I feel that parts of my body have changed in some way, or that parts of my body are working differently than before.',
-      ].flatMap((label, index) => [
-        {
-          key: toWords.convert(index).replace(/ /g, '').toLowerCase(),
-          fieldGroup: [
-            {
-              className: 'row',
-              key: 'a',
-              type: 'radio',
-              templateOptions: {
-                label,
-                required: true,
-                options: [
-                  { value: true, label: 'True' },
-                  { value: false, label: 'False' },
-                ],
-              },
+      ].map((label, index) => ({
+        key: toWords.convert(index).replace(/ /g, '').toLowerCase(),
+        fieldGroup: [
+          {
+            className: 'row',
+            key: 'a',
+            type: 'radio',
+            templateOptions: {
+              label,
+              required: true,
+              options: [
+                { value: true, label: 'True' },
+                { value: false, label: 'False' },
+              ],
             },
-            {
-              className: 'row bg-light p-3',
-              key: 'b',
-              type: 'radio',
-              templateOptions: {
-                label: 'How much distress did you experience?',
-                required: true,
-                options: [
-                  { value: 0, label: 'None' },
-                  { value: 1, label: 'Mild' },
-                  { value: 2, label: 'Moderate' },
-                  { value: 3, label: 'Severe' },
-                ],
-              },
-              hideExpression: '!model.a',
+          },
+          {
+            className: 'row bg-light p-3',
+            key: 'b',
+            type: 'radio',
+            templateOptions: {
+              label: 'How much distress did you experience?',
+              required: true,
+              options: [
+                { value: 0, label: 'None' },
+                { value: 1, label: 'Mild' },
+                { value: 2, label: 'Moderate' },
+                { value: 3, label: 'Severe' },
+              ],
             },
-            feedbackQuestion,
-          ],
-        },
-      ]),
+            hideExpression: '!model.a',
+          },
+          feedbackQuestion,
+        ],
+      })),
       feedbackConstent,
     ],
     moreInfoLink: '#',
