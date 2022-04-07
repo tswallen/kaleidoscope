@@ -1,10 +1,6 @@
 import { Form } from './form';
 import { ToWords } from 'to-words';
 import { FormlyFieldConfig } from '@ngx-formly/core/lib/core';
-import { distinctUntilChanged, startWith, map, pairwise } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
-import { FormGroup } from '@angular/forms';
 
 const toWords = new ToWords();
 
@@ -39,7 +35,7 @@ const personal: FormlyFieldConfig = {
   ],
 };
 
-const feedbackConstent: FormlyFieldConfig = {
+const feedbackConsent: FormlyFieldConfig = {
   className: 'row bg-primary text-light p-3',
   key: 'feedbackConsent',
   type: 'radio',
@@ -159,7 +155,7 @@ export const forms: Form[] = [
           feedbackQuestion,
         ],
       })),
-      feedbackConstent,
+      feedbackConsent,
     ],
     moreInfoLink: '#',
   },
@@ -323,29 +319,30 @@ export const forms: Form[] = [
       'Some simple yes and no questions with scales inquiring about thoughts and feelings during psychosis.',
     route: 'pdi',
     fields: [
-      'Do you ever feel as if people seem to drop hints about you or say things with a double meaning?',
-      'Do you ever feel as if things in magazines or on TV were written especially for you?',
-      'Do you ever feel as if some people are not what they seem to be?',
-      'Do you ever feel as if you are being persecuted in some way?',
-      'Do you ever feel as if there is a conspiracy against you?',
-      'Do you ever feel as if you are, ordestined to be someone very important?',
-      'Do you ever feel that you are a very special or unusual person?',
-      'Do you ever feel that you are especially close to God?',
-      'Do you ever think people can communicate telepathically?',
-      'Do you ever feel as if electrical devices such as computers can influence the way you think?',
-      'Do you ever feel as if you have been chosen by God in some way?',
-      'Do you believe in the power of witchcraft, voodoo or the occult?',
-      'Are you often worried that your partner may be unfaithful?',
-      'Do you ever feel that you have sinned more than the average person?',
-      'Do you ever feel that people look at you oddly because of you rappearance?',
-      'Do you ever feel as if you had no thoughts in your head at all?',
-      'Do you ever feel as if the world is about to end?',
-      'Do your thoughts ever feel alien to you in some way?',
-      'Have your thoughts ever been so vivid that you were worried other people would hear them?',
-      'Do you ever feel as if your own thoughts were being echoed back to you?',
-      'Do you ever feel as if you are a robot or zombie without a will of your own?',
-    ].flatMap((label, index) => [
-      {
+      personal,
+      ...[
+        'Do you ever feel as if people seem to drop hints about you or say things with a double meaning?',
+        'Do you ever feel as if things in magazines or on TV were written especially for you?',
+        'Do you ever feel as if some people are not what they seem to be?',
+        'Do you ever feel as if you are being persecuted in some way?',
+        'Do you ever feel as if there is a conspiracy against you?',
+        'Do you ever feel as if you are, ordestined to be someone very important?',
+        'Do you ever feel that you are a very special or unusual person?',
+        'Do you ever feel that you are especially close to God?',
+        'Do you ever think people can communicate telepathically?',
+        'Do you ever feel as if electrical devices such as computers can influence the way you think?',
+        'Do you ever feel as if you have been chosen by God in some way?',
+        'Do you believe in the power of witchcraft, voodoo or the occult?',
+        'Are you often worried that your partner may be unfaithful?',
+        'Do you ever feel that you have sinned more than the average person?',
+        'Do you ever feel that people look at you oddly because of you rappearance?',
+        'Do you ever feel as if you had no thoughts in your head at all?',
+        'Do you ever feel as if the world is about to end?',
+        'Do your thoughts ever feel alien to you in some way?',
+        'Have your thoughts ever been so vivid that you were worried other people would hear them?',
+        'Do you ever feel as if your own thoughts were being echoed back to you?',
+        'Do you ever feel as if you are a robot or zombie without a will of your own?',
+      ].map((label, index) => ({
         key: toWords.convert(index).replace(/ /g, '').toLowerCase(),
         fieldGroup: [
           {
@@ -414,8 +411,9 @@ export const forms: Form[] = [
             hideExpression: '!model.a',
           },
         ],
-      },
-    ]),
+      })),
+      feedbackConsent,
+    ],
     moreInfoLink: '#',
   },
   {
@@ -425,40 +423,41 @@ export const forms: Form[] = [
       'Some simple yes and no questions with scales inquiring about common experiences with psychosis.',
     route: 'caps',
     fields: [
-      'Do you ever notice that sounds are much louder than they normally would be?',
-      'Do you ever sense the presence of another being, despite being unable to see any evidence?',
-      'Do you ever hear your own thoughts repeated or echoed?',
-      'Do you ever see shapes, lights or colours even though there is nothing really there?',
-      'Do you ever experience unusual burning sensations or other strange feelings in or on your body?',
-      'Do you ever hear noises or sounds when there is nothing about to explain them?',
-      'Do you ever hear your own thoughts spoken aloud in your head, so that someone near might be able to hear them?',
-      'Do you ever detect smells which don’t seem to come from your surroundings?',
-      'Do you ever have the sensation that your body, or a part of it, is changing or has changed shape?',
-      'Do you ever have the sensation that your limbs might not be your own or might not be properly connected to your body?',
-      'Do you ever hear voices commenting on what you are thinking or doing?',
-      'Do you ever feel that someone is touching you, but when you look nobody is there?',
-      'Do you ever hear voices saying words or sentences when there is no-one around that might account for it?',
-      'Do you ever experience unexplained tastes in your mouth?',
-      'Do you ever find that sensations happen all at once and flood you with information?',
-      'Do you ever find that sounds are distorted in strange or unusual ways?',
-      'Do you ever have difficulty distinguishing one sensation from another?',
-      'Do you ever smell everyday odours and think that they are unusually strong?',
-      'Do you ever find the appearance of things or people seems to change in a puzzling way, e.g. distorted shapes or sizes or colour?',
-      'Do you ever find that your skin is more sensitive to touch, heat or cold than usual?',
-      'Do you ever think that food or drink tastes much stronger than it normally would?',
-      'Do you ever look in the mirror and think that your face seems different from usual?',
-      'Do you ever have days where lights or colours seem brighter or more intense than usual?',
-      'Do you ever have the feeling that of being uplifted, as if driving or rolling over a road while sitting quietly?',
-      'Do you ever find that common smells sometimes seem unusually different?',
-      'Do you ever think that everyday things look abnormal to you?',
-      'Do you ever find that your experience of time changes dramatically?',
-      'Have you ever heard two or more unexplained voices talking with each other?',
-      'Do you ever notice smells or odours that people next to you seem unaware of?',
-      'Do you ever notice that food or drink seems to have an unusual taste?',
-      'Do you ever see things that other people cannot?',
-      'Do you ever hear sounds or music that people near you don’t hear?',
-    ].flatMap((label, index) => [
-      {
+      personal,
+      ...[
+        'Do you ever notice that sounds are much louder than they normally would be?',
+        'Do you ever sense the presence of another being, despite being unable to see any evidence?',
+        'Do you ever hear your own thoughts repeated or echoed?',
+        'Do you ever see shapes, lights or colours even though there is nothing really there?',
+        'Do you ever experience unusual burning sensations or other strange feelings in or on your body?',
+        'Do you ever hear noises or sounds when there is nothing about to explain them?',
+        'Do you ever hear your own thoughts spoken aloud in your head, so that someone near might be able to hear them?',
+        'Do you ever detect smells which don’t seem to come from your surroundings?',
+        'Do you ever have the sensation that your body, or a part of it, is changing or has changed shape?',
+        'Do you ever have the sensation that your limbs might not be your own or might not be properly connected to your body?',
+        'Do you ever hear voices commenting on what you are thinking or doing?',
+        'Do you ever feel that someone is touching you, but when you look nobody is there?',
+        'Do you ever hear voices saying words or sentences when there is no-one around that might account for it?',
+        'Do you ever experience unexplained tastes in your mouth?',
+        'Do you ever find that sensations happen all at once and flood you with information?',
+        'Do you ever find that sounds are distorted in strange or unusual ways?',
+        'Do you ever have difficulty distinguishing one sensation from another?',
+        'Do you ever smell everyday odours and think that they are unusually strong?',
+        'Do you ever find the appearance of things or people seems to change in a puzzling way, e.g. distorted shapes or sizes or colour?',
+        'Do you ever find that your skin is more sensitive to touch, heat or cold than usual?',
+        'Do you ever think that food or drink tastes much stronger than it normally would?',
+        'Do you ever look in the mirror and think that your face seems different from usual?',
+        'Do you ever have days where lights or colours seem brighter or more intense than usual?',
+        'Do you ever have the feeling that of being uplifted, as if driving or rolling over a road while sitting quietly?',
+        'Do you ever find that common smells sometimes seem unusually different?',
+        'Do you ever think that everyday things look abnormal to you?',
+        'Do you ever find that your experience of time changes dramatically?',
+        'Have you ever heard two or more unexplained voices talking with each other?',
+        'Do you ever notice smells or odours that people next to you seem unaware of?',
+        'Do you ever notice that food or drink seems to have an unusual taste?',
+        'Do you ever see things that other people cannot?',
+        'Do you ever hear sounds or music that people near you don’t hear?',
+      ].map((label, index) => ({
         key: toWords.convert(index).replace(/ /g, '').toLowerCase(),
         fieldGroup: [
           {
@@ -526,9 +525,11 @@ export const forms: Form[] = [
             },
             hideExpression: '!model.a',
           },
+          feedbackQuestion,
         ],
-      },
-    ]),
+      })),
+      feedbackConsent,
+    ],
     moreInfoLink: '#',
   },
 ];
