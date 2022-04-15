@@ -410,6 +410,7 @@ export const forms: Form[] = [
             },
             hideExpression: '!model.a',
           },
+          feedbackQuestion,
         ],
       })),
       feedbackConsent,
