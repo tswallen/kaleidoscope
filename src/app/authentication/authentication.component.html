@@ -1,9 +1,0 @@
-<p>
-  Auth!
-  {{ (auth.user | async)?.uid | json }}
-  {{ (auth.credential | async)?.additionalUserInfo.isNewUser | json }}
-  <button (click)="login('tswallen@outlook.com')" *ngIf="showLoginButton">
-    Log in anonymously
-  </button>
-  <button (click)="logout()" *ngIf="showLogoutButton">Log out</button>
-</p>
