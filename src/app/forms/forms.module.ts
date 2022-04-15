@@ -9,8 +9,6 @@ import { FormsRoutingModule } from './forms-routing.module';
 import { FormComponent } from './form/form.component';
 import { ResultsComponent } from './form/results/results.component';
 
-import { AngularFireModule } from '@angular/fire/compat';
-
 @NgModule({
   imports: [
     FormsRoutingModule,
@@ -19,7 +17,6 @@ import { AngularFireModule } from '@angular/fire/compat';
     ReactiveFormsModule,
     FormlyBootstrapModule,
     FormlyModule,
-    AngularFireModule,
   ],
   declarations: [FormsComponent, FormComponent, ResultsComponent],
   exports: [FormsComponent, FormComponent, ResultsComponent],
