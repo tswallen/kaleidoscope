@@ -18,15 +18,7 @@ import { ResultsComponent } from './form/results/results.component';
     FormlyBootstrapModule,
     FormlyModule,
   ],
-  declarations: [
-    FormsComponent,
-    FormComponent,
-    ResultsComponent
-  ],
-  exports: [
-    FormsComponent,
-    FormComponent,
-    ResultsComponent
-  ],
+  declarations: [FormsComponent, FormComponent, ResultsComponent],
+  exports: [FormsComponent, FormComponent, ResultsComponent],
 })
 export class FormsModule {}

@@ -39,6 +39,7 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
+      if (this.model.email) {this.handleEmail(this.model.email)}
       this.submitted = true;
     }
   }
