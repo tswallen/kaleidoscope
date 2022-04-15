@@ -8,6 +8,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormsRoutingModule } from './forms-routing.module';
 import { FormComponent } from './form/form.component';
 import { ResultsComponent } from './form/results/results.component';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ResultsComponent } from './form/results/results.component';
     FormlyBootstrapModule,
     FormlyModule,
   ],
+  providers: [AuthenticationService],
   declarations: [FormsComponent, FormComponent, ResultsComponent],
   exports: [FormsComponent, FormComponent, ResultsComponent],
 })
