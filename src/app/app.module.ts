@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
-import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 const config = {
   apiKey: 'AIzaSyCzb76mjJ7VqXDrSjeq74FLtRkIP83rr8o',
@@ -36,9 +36,9 @@ const config = {
     }),
     FormsModule,
     AngularFireModule.initializeApp(config),
+    AuthenticationModule
   ],
   declarations: [AppComponent, HomeComponent],
-  providers: [AuthenticationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
