@@ -16,8 +16,7 @@ export class FormComponent implements OnInit {
   model = {};
   options: FormlyFormOptions = {};
   submitted: boolean;
-  results = {};
-
+  
   constructor(
     private route: ActivatedRoute,
     private formService: FormService
@@ -32,26 +31,9 @@ export class FormComponent implements OnInit {
     this.form = this.formService.getForm(id);
   }
 
-  findChild(array, key) {
-    let result;
-    array.some(
-      (child) =>
-        (child.key === key && (result = child)) ||
-        (result = this.findChild(child.fieldGroup || [], key))
-    );
-    return result;
-  }
-
   onSubmit() {
     if (this.formGroup.valid) {
       this.submitted = true;
-      alert(JSON.stringify(this.model));
-      Object.entries(this.model).forEach(
-        (object) =>
-          (this.results[
-            this.findChild(this.form.fields, object[0]).templateOptions.label
-          ] = object[1])
-      );
     }
   }
 }

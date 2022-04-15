@@ -29,4 +29,4 @@
   </div>
   <p>{{ model.feedbackConsent }}</p>
 </ng-container>
-<app-results *ngIf="submitted" [results]="results"></app-results>
+<app-results *ngIf="submitted" [results]="form.fields"></app-results>

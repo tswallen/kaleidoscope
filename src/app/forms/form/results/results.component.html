@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="py-3 text-center">
     <h5>Results</h5>
   </div>
@@ -6,6 +6,48 @@
     <h4>Question: <small class="text-muted">{{ result.key }}</small></h4>
     <p><strong>Your answer:</strong> {{ result.value }}</p>
   </div>
+  <div class="row py-3 d-flex justify-content-end">
+    <button class="btn btn-secondary mr-3" routerLink="">Back to home</button>
+    <button class="btn btn-primary" disabled>Download (coming soon)</button>
+  </div>
+</div>
+ -->
+<ng-template #resultTemplateRef let-result="result">
+  <div class="row bg-light mb-3">
+    <ng-container *ngIf="isNotContainer(result)">
+      <h4>
+        Question:
+        <small class="text-muted">{{ result.templateOptions.label }}</small>
+      </h4>
+
+      <p><strong>Your answer:</strong> {{ result.formControl.value }}</p>
+    </ng-container>
+
+    <div *ngIf="result.fieldGroup && result.fieldGroup.length">
+      <ng-template ngFor let-child [ngForOf]="result.fieldGroup">
+        <ng-template
+          [ngTemplateOutlet]="resultTemplateRef"
+          [ngTemplateOutletContext]="{ result: child }"
+        >
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</ng-template>
+
+<div class="container">
+  <div class="py-3 text-center">
+    <h5>Results</h5>
+  </div>
+
+  <ng-template ngFor let-result [ngForOf]="results">
+    <ng-template
+      [ngTemplateOutlet]="resultTemplateRef"
+      [ngTemplateOutletContext]="{ result: result }"
+    >
+    </ng-template>
+  </ng-template>
+
   <div class="row py-3 d-flex justify-content-end">
     <button class="btn btn-secondary mr-3" routerLink="">Back to home</button>
     <button class="btn btn-primary" disabled>Download (coming soon)</button>
