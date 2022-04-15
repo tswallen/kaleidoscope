@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './authentication.service';
 
+import { AngularFireModule } from '@angular/fire/compat';
+
 const config = {
   apiKey: 'AIzaSyCzb76mjJ7VqXDrSjeq74FLtRkIP83rr8o',
   authDomain: 'kaleidoscope-psychosis.firebaseapp.com',
@@ -13,10 +15,7 @@ const config = {
 };
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AngularFireModule.initializeApp(config)
-  ],
-  providers: [AuthenticationService]
+  imports: [CommonModule, AngularFireModule.initializeApp(config)],
+  providers: [AuthenticationService],
 })
-export class AuthenticationModule { }
+export class AuthenticationModule {}
