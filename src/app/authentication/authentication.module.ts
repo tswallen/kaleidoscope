@@ -15,7 +15,7 @@ const config = {
 };
 
 @NgModule({
-  imports: [CommonModule, AngularFireModule.initializeApp(config)],
+  imports: [CommonModule, AngularFireModule],
   providers: [AuthenticationService],
 })
 export class AuthenticationModule {}
