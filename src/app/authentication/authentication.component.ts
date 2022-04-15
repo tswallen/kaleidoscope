@@ -42,8 +42,8 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
     }
   }
 
-  async loginAnonymously() {
-    const user = await this.auth.signInAnonymously();
+  async login(email: string) {
+    const user = await this.auth.sendSignInLinkToEmail(email, {url: 'https://kaleidoscope.stackblitz.io', handleCodeInApp: true});
     // TODO sign into offline app
   }
 
