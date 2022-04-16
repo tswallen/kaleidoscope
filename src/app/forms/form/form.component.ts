@@ -5,7 +5,6 @@ import { FormlyFormOptions } from '@ngx-formly/core/lib/core';
 import { FormService } from '../form.service';
 import { Form } from '../form';
 import { AuthenticationService } from '../../authentication/authentication.service';
-//import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-form',
