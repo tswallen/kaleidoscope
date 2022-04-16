@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions } from '@ngx-formly/core/lib/core';
 import { FormService } from '../form.service';
 import { Form } from '../form';
+import { AuthenticationService } from '../../authentication/authentication.service';
 //import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
@@ -20,9 +21,9 @@ export class FormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private formService: FormService
-  ) //private authenticationService: AuthenticationService
-  {}
+    private formService: FormService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
     this.getFields();
