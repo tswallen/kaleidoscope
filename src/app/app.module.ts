@@ -10,7 +10,6 @@ import { FormsModule } from './forms/forms.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 
-//import { AngularFireModule } from '@angular/fire/compat';
 import { FunctionsModule } from '@angular/fire/functions';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { AuthenticationService } from './authentication/authentication.service';
@@ -31,19 +30,18 @@ const config = {
   imports: [
     AppRoutingModule,
     BrowserModule,
+    FunctionsModule,
+    provideFirebaseApp(() => initializeApp(config)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      return firestore;
+    }),
     ReactiveFormsModule,
     FormlyBootstrapModule,
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' },
       ],
-    }),
-    //AngularFireModule.initializeApp(config),
-    FunctionsModule,
-    provideFirebaseApp(() => initializeApp(config)),
-    provideFirestore(() => {
-      const firestore = getFirestore();
-      return firestore;
     }),
     FormsModule,
   ],

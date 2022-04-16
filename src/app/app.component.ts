@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-//import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { traceUntilFirst } from 'rxfire/performance';
 import { Observable } from 'rxjs';
