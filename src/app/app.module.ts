@@ -10,7 +10,8 @@ import { FormsModule } from './forms/forms.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 
-import { AngularFireModule } from '@angular/fire/compat';
+//import { AngularFireModule } from '@angular/fire/compat';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { AuthenticationService } from './authentication/authentication.service';
 
 const config = {
@@ -34,7 +35,8 @@ const config = {
         { name: 'required', message: 'This field is required' },
       ],
     }),
-    AngularFireModule.initializeApp(config),
+    //AngularFireModule.initializeApp(config),
+    provideFirebaseApp(() => initializeApp(config)),
     FormsModule,
   ],
   providers: [AuthenticationService],
