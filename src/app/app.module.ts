@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { FunctionsModule } from '@angular/fire/functions';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { AuthenticationService } from './authentication/authentication.service';
+import { getFirestore } from '@angular/fire/firestore/firebase';
+import { provideFirestore } from '@angular/fire/firestore';
 
 const config = {
   apiKey: 'AIzaSyCzb76mjJ7VqXDrSjeq74FLtRkIP83rr8o',
@@ -39,6 +41,10 @@ const config = {
     //AngularFireModule.initializeApp(config),
     FunctionsModule,
     provideFirebaseApp(() => initializeApp(config)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      return firestore;
+    }),
     FormsModule,
   ],
   providers: [AuthenticationService],
