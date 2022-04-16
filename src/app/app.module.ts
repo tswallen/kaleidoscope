@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 
 //import { AngularFireModule } from '@angular/fire/compat';
+import { FunctionsModule } from '@angular/fire/functions';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { AuthenticationService } from './authentication/authentication.service';
 
@@ -36,6 +37,7 @@ const config = {
       ],
     }),
     //AngularFireModule.initializeApp(config),
+    FunctionsModule,
     provideFirebaseApp(() => initializeApp(config)),
     FormsModule,
   ],
