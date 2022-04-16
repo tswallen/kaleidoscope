@@ -12,7 +12,7 @@ export class AuthenticationService {
     handleCodeInApp: true,
   };
 
-  constructor(private auth: Auth) {
+  constructor(@Optional() private auth: Auth) {
     if (auth) {
       this.user = authState(this.auth);
     }
