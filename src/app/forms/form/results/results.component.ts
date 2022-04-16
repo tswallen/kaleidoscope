@@ -7,7 +7,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core/lib/core';
   styleUrls: ['./results.component.css'],
 })
 export class ResultsComponent implements OnInit {
-  @Input() results: FormlyFieldConfig[];
+  @Input() results!: FormlyFieldConfig[];
 
   constructor() {}
 

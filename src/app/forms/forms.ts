@@ -89,8 +89,8 @@ const feedbackQuestion: FormlyFieldConfig = {
     },
   ],
   /* Convert this to a hook */
-  hideExpression: (model: any, formState: any, field: FormlyFieldConfig) => {
-    return !field.form.parent.get('feedbackConsent').value;
+  hideExpression: (model: any, formState: any, field: FormlyFieldConfig | undefined) => {
+    return !field!.form!.parent!.get('feedbackConsent')!.value;
   },
 };
 

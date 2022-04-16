@@ -12,11 +12,11 @@ import { AuthenticationService } from '../../authentication/authentication.servi
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  form: Form;
+  form!: Form;
   formGroup = new FormGroup({});
   model = {};
   options: FormlyFormOptions = {};
-  submitted: boolean;
+  submitted!: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class FormComponent implements OnInit {
 
   getFields(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.form = this.formService.getForm(id);
+    this.form = this.formService.getForm(id!)!;
   }
 
   handleEmail(email: string): void {
