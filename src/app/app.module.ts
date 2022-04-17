@@ -12,20 +12,15 @@ import { HomeComponent } from './home/home.component';
 
 import { FunctionsModule } from '@angular/fire/functions';
 import { AuthenticationService } from './authentication/authentication.service';
+import { environment } from 'src/environments/environment';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
-import {
-  connectFirestoreEmulator,
-  getFirestore,
-  provideFirestore,
-  enableMultiTabIndexedDbPersistence,
-} from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
+import { connectFirestoreEmulator, getFirestore, provideFirestore, enableMultiTabIndexedDbPersistence } from '@angular/fire/firestore';
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
 
-export const persistenceEnabled = new Promise<boolean>((resolve) => {
+export const persistenceEnabled = new Promise<boolean>(resolve => {
   resolvePersistenceEnabled = resolve;
 });
 
@@ -37,9 +32,7 @@ export const persistenceEnabled = new Promise<boolean>((resolve) => {
     provideAuth(() => {
       const auth = getAuth();
       if (environment.useEmulators) {
-        connectAuthEmulator(auth, 'http://localhost:9099', {
-          disableWarnings: true,
-        });
+        connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
       }
       return auth;
     }),
@@ -47,7 +40,7 @@ export const persistenceEnabled = new Promise<boolean>((resolve) => {
     provideFirestore(() => {
       const firestore = getFirestore();
       if (environment.useEmulators) {
-        connectFirestoreEmulator(firestore, 'localhost', 8080);
+          connectFirestoreEmulator(firestore, 'localhost', 8080);
       }
       enableMultiTabIndexedDbPersistence(firestore).then(
         () => resolvePersistenceEnabled(true),
