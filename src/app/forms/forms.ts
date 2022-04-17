@@ -1,6 +1,6 @@
 import { Form } from './form';
 import { ToWords } from 'to-words';
-import { FormlyFieldConfig } from '@ngx-formly/core/lib/core';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 const toWords = new ToWords();
 
