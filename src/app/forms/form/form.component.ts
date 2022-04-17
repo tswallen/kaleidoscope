@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { FormlyFormOptions } from '@ngx-formly/core/lib/core';
+import { FormlyFormOptions } from '@ngx-formly/core';
 import { FormService } from '../form.service';
 import { Form } from '../form';
 import { AuthenticationService } from '../../authentication/authentication.service';
