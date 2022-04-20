@@ -4,7 +4,6 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions } from '@ngx-formly/core';
 import { FormService } from '../form.service';
 import { Form } from '../form';
-import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-form',
@@ -20,8 +19,7 @@ export class FormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private formService: FormService,
-    private authenticationService: AuthenticationService
+    private formService: FormService
   ) {}
 
   ngOnInit(): void {
@@ -33,13 +31,9 @@ export class FormComponent implements OnInit {
     this.form = this.formService.getForm(id!)!;
   }
 
-  handleEmail(email: string): void {
-    this.authenticationService.login(email);
-  }
-
   onSubmit() {
     if (this.formGroup.valid) {
-      //if (this.model.email) {this.handleEmail(this.model.email)}
+      this.formService.submitForm(this.model).subscribe();
       this.submitted = true;
     }
   }

@@ -533,4 +533,54 @@ export const forms: Form[] = [
     ],
     moreInfoLink: '#',
   },
+  {
+    title: 'Prodromal Questionnaire (test)',
+    time: 5,
+    description:
+      'A short and simple multiple-choice questionnaire about the nature of psychosis.',
+    route: 'test',
+    fields: [
+      personal,
+      ...[
+        'I feel uninterested in the things I used to enjoy.',
+        'I often seem to live through events exactly as they happened before (déjà vu).',
+      ].map((label, index) => ({
+        key: toWords.convert(index).replace(/ /g, '').toLowerCase(),
+        fieldGroup: [
+          {
+            className: 'row',
+            key: 'a',
+            type: 'radio',
+            templateOptions: {
+              label,
+              required: true,
+              options: [
+                { value: true, label: 'True' },
+                { value: false, label: 'False' },
+              ],
+            },
+          },
+          {
+            className: 'row bg-light p-3',
+            key: 'b',
+            type: 'radio',
+            templateOptions: {
+              label: 'How much distress did you experience?',
+              required: true,
+              options: [
+                { value: 0, label: 'None' },
+                { value: 1, label: 'Mild' },
+                { value: 2, label: 'Moderate' },
+                { value: 3, label: 'Severe' },
+              ],
+            },
+            hideExpression: '!model.a',
+          },
+          feedbackQuestion,
+        ],
+      })),
+      feedbackConsent,
+    ],
+    moreInfoLink: '#',
+  },
 ];

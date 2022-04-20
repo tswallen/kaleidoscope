@@ -2,6 +2,16 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "authentication": [
+        "dist/authentication/authentication",
+        "dist/authentication"
+      ],
+      "messages": [
+        "dist/messages/messages",
+        "dist/messages"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

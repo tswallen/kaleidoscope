@@ -1,0 +1,5 @@
+<ngb-toast
+  *ngFor="let message of messageService.messages"
+  [header]="message.header" [autohide]="true" [delay]="message.delay || 5000"
+  (hiddden)="messageService.remove(message)"
+>{{message.body}}</ngb-toast>

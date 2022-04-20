@@ -1,5 +1,5 @@
 <ng-template #resultTemplateRef let-result="result">
-  <div class="row bg-light mb-3">
+  <div class="row bg-light mb-3" *ngIf="shouldRender(result)">
     <ng-container *ngIf="isNotContainer(result)">
       <h4>
         Question:
@@ -31,8 +31,9 @@
     ></ng-template>
   </ng-template>
 
-  <div class="row py-3 d-flex justify-content-end">
+  <div class="py-3 d-flex justify-content-end">
     <button class="btn btn-secondary mr-3" routerLink="">Back to home</button>
-    <button class="btn btn-primary" disabled>Download (coming soon)</button>
+    <button class="btn btn-primary mr-3" disabled>Download (coming soon)</button>
+    <button class="btn btn-primary" (click)="print()">Print</button>
   </div>
 </div>

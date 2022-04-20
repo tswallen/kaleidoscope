@@ -17,6 +17,8 @@ import { environment } from '../environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth';
 import { connectFirestoreEmulator, getFirestore, provideFirestore, enableMultiTabIndexedDbPersistence } from '@angular/fire/firestore';
+import { MessagesComponent } from './messages/messages.component';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 let resolvePersistenceEnabled: (enabled: boolean) => void;
 
@@ -49,16 +51,17 @@ export const persistenceEnabled = new Promise<boolean>(resolve => {
       return firestore;
     }),
     ReactiveFormsModule,
-    FormlyBootstrapModule,
     FormlyModule.forRoot({
       validationMessages: [
         { name: 'required', message: 'This field is required' },
       ],
     }),
+    FormlyBootstrapModule,
     FormsModule,
+    NgbToastModule
   ],
   providers: [AuthenticationService],
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, MessagesComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

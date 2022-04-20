@@ -13,6 +13,15 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit() {}
 
+  shouldRender(result: FormlyFieldConfig) {
+    return (
+      result.key !== 'personal' &&
+      result.formControl &&
+      /* TODO: handle empty answers */
+      result.formControl.touched
+    )
+  }
+
   isNotContainer(result: FormlyFieldConfig) {
     return (
       result.templateOptions &&
@@ -21,5 +30,9 @@ export class ResultsComponent implements OnInit {
       /* TODO: handle empty answers */
       result.formControl.touched
     );
+  }
+
+  print() {
+    window.print();
   }
 }
