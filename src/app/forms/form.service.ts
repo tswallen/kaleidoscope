@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth, sendSignInLinkToEmail } from '@angular/fire/auth';
 import { setDoc, doc, Firestore } from '@angular/fire/firestore';
 import { catchError, from, Observable, of, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { MessageInfo, MessageService } from '../message.service';
 import { forms } from './forms';
 

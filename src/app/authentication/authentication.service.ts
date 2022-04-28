@@ -2,7 +2,7 @@ import { Injectable, Optional } from '@angular/core';
 
 import { Auth, authState, sendSignInLinkToEmail } from '@angular/fire/auth';
 import { catchError, EMPTY, from, Observable, of, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { MessageInfo, MessageService } from '../message.service';
 
 @Injectable({ providedIn: 'root' })
