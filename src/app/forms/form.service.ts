@@ -13,8 +13,7 @@ export class FormService {
     return forms.find((f) => f.route === form);
   }
 
-  submitForm(form: any) {
-    const id = new Date().getTime() + Math.floor(Math.random() * (10000 - 0) + 0);
+  submitForm(form: any, id: any) {
     this.handleUser(form.personal!.email!);
     return from(setDoc(doc(this.firestore, 'forms/prodromal/submissions', id.toString()), {data: JSON.stringify(form)})).pipe(
       tap(_ => this.log({header: 'Success', body: 'Your form was submitted!'})),

@@ -33,7 +33,8 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.valid) {
-      this.formService.submitForm(this.model).subscribe();
+      const id = new Date().getTime() + Math.floor(Math.random() * (10000 - 0) + 0);
+      this.formService.submitForm(this.model, id).subscribe();
       this.submitted = true;
     }
   }
