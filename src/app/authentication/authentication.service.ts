@@ -1,6 +1,6 @@
 import { Component, Injectable, Input, Optional } from '@angular/core';
 
-import { Auth, authState, EmailAuthProvider, linkWithCredential, sendSignInLinkToEmail, signInAnonymously, signInWithEmailAndPassword, User } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, EmailAuthProvider, linkWithCredential, sendSignInLinkToEmail, signInAnonymously, signInWithEmailAndPassword, User } from '@angular/fire/auth';
 import { catchError, EMPTY, from, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MessageInfo, MessageService } from '../message.service';
@@ -23,13 +23,14 @@ export class AuthenticationService {
     handleCodeInApp: true,
   };
 
+  // SHOULD BE "SIGN UP"
   login(email: string) {
-    if (this.auth.currentUser!.isAnonymous) {
-      this.createRealUser(email);
+    if (this.auth.currentUser && this.auth.currentUser.isAnonymous) {
+      return this.createRealUser(email);
     }
     else {
       const password = randomPassword({ length: 16, characters: upper });
-      return from(signInWithEmailAndPassword(this.auth, email, password!)).pipe(
+      return from(createUserWithEmailAndPassword(this.auth, email, password!)).pipe(
         tap(_ => {
           this.log({ header: 'Success', body: `Logged in with ${email}` });
           this.showPasswordModal(password);
