@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { doc, docData, Firestore } from '@angular/fire/firestore';
-import { traceUntilFirst } from 'rxfire/performance';
-import { Observable } from 'rxjs';
+import { User } from '@angular/fire/auth';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EMPTY, Observable } from 'rxjs';
+import { AuthenticationService } from './authentication/authentication.service';
 
 @Component({
   selector: 'kaleidoscope-root',
@@ -9,10 +10,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-/*   public readonly forms: Observable<any[]>; */
+  user: Observable<User | null> = EMPTY;
 
-  constructor(firestore: Firestore) {
-/*     const ref = doc(firestore, 'forms');
-    this.forms = docData(ref).pipe(traceUntilFirst('firestore')); */
+  constructor(private authenticationService: AuthenticationService) {
+    this.user = authenticationService.user;
+  }
+
+  logIn() {
+    this.authenticationService.loginAnonymously();
+  }
+
+  logOut() {
+    this.authenticationService.logout();
   }
 }

@@ -1,8 +1,12 @@
 <nav class="navbar navbar-dark bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand mb-0 h1" routerLink="">Kaleidoscope Psychosis Project</a>
-    <button class="btn btn-outline-light">Login</button>
+    <button class="btn btn-outline-light" *ngIf="user | async" (click)="logOut()">Log Out</button>
+    <button class="btn btn-outline-light" *ngIf="!(user | async)" (click)="logIn()">Login</button>
   </div>
 </nav>
+<div class="row bg-secondary">
+  <code>User: {{ (user | async)?.uid }}</code>
+</div>
 <router-outlet></router-outlet>
 <kaleidoscope-messages></kaleidoscope-messages>

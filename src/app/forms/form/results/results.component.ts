@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { User } from '@angular/fire/auth';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { EMPTY, Observable } from 'rxjs';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 
 @Component({
   selector: 'app-results',
@@ -9,9 +13,10 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 export class ResultsComponent implements OnInit {
   @Input() results!: FormlyFieldConfig[];
 
-  constructor() {}
-
   ngOnInit() {}
+
+  constructor() {
+  }
 
   shouldRender(result: FormlyFieldConfig) {
     return (
@@ -31,7 +36,6 @@ export class ResultsComponent implements OnInit {
       result.formControl.touched
     );
   }
-
   print() {
     window.print();
   }
