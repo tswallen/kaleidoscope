@@ -27,7 +27,7 @@ export class FormService {
       this.authenticationService.loginAnonymously().subscribe();
     }
     else {
-      this.authenticationService.login(email)!.subscribe();
+      this.authenticationService.signUp(email).subscribe();
     }
   }
 

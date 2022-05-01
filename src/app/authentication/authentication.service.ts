@@ -18,24 +18,18 @@ export class AuthenticationService {
     }
   }
 
-  actionCodeSettings = {
-    url: window.location.href,
-    handleCodeInApp: true,
-  };
-
-  // SHOULD BE "SIGN UP"
-  login(email: string) {
+  signUp(email: string) {
     if (this.auth.currentUser && this.auth.currentUser.isAnonymous) {
-      return this.createRealUser(email);
+      return this.linkEmail(email);
     }
     else {
       const password = randomPassword({ length: 16, characters: upper });
       return from(createUserWithEmailAndPassword(this.auth, email, password!)).pipe(
         tap(_ => {
-          this.log({ header: 'Success', body: `Logged in with ${email}` });
+          this.log({ header: 'Success', body: `Signed up with ${email}` });
           this.showPasswordModal(password);
         }),
-        catchError(this.handleError<any>('login'))
+        catchError(this.handleError<any>('signUp'))
       );
     }
   }
@@ -47,14 +41,14 @@ export class AuthenticationService {
     );
   }
 
-  sendEmail(email: string) {
+  login(email: string) {
     return from(sendSignInLinkToEmail(this.auth, email, environment.actionCodeSettings)).pipe(
       tap(_ => this.log({ header: 'Success', body: `An email was sent to ${email}` })),
-      catchError(this.handleError<any>(`sendEmail email=${email}`))
+      catchError(this.handleError<any>(`login email=${email}`))
     );
   }
 
-  createRealUser(email: string) {
+  linkEmail(email: string) {
     const password = randomPassword({ length: 16, characters: upper });
     const credential = EmailAuthProvider.credential(email, password);
     return from(linkWithCredential(this.auth.currentUser!, credential)).pipe(
@@ -62,7 +56,7 @@ export class AuthenticationService {
         this.log({ header: 'Success', body: `User created with ${email}` });
         this.showPasswordModal(password);
       }),
-      catchError(this.handleError<any>(`createRealUser email=${email}`))
+      catchError(this.handleError<any>(`linkEmail email=${email}`))
     );
   }
 
