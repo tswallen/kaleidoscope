@@ -1,10 +1,8 @@
 import { Component, Injectable, Input, Optional } from '@angular/core';
 
-import { Auth, authState, EmailAuthProvider, linkWithCredential, sendSignInLinkToEmail, signInAnonymously, User } from '@angular/fire/auth';
-import { traceUntilFirst } from 'rxfire/performance';
-import { catchError, EMPTY, from, Observable, of, Subscription, tap } from 'rxjs';
+import { Auth, authState, EmailAuthProvider, linkWithCredential, sendSignInLinkToEmail, signInAnonymously, signInWithEmailAndPassword, User } from '@angular/fire/auth';
+import { catchError, EMPTY, from, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
 import { MessageInfo, MessageService } from '../message.service';
 import { randomPassword, upper } from 'secure-random-password';
 import { signOut } from '@firebase/auth';
@@ -12,16 +10,11 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private readonly userDisposable: Subscription | undefined;
   public readonly user: Observable<User | null> = EMPTY;
 
   constructor(@Optional() private auth: Auth, private messageService: MessageService, private modalService: NgbModal) {
     if (auth) {
       this.user = authState(this.auth);
-      this.userDisposable = authState(this.auth).pipe(
-        traceUntilFirst('auth'),
-        map(u => !!u)
-      ).subscribe();
     }
   }
 
@@ -29,6 +22,22 @@ export class AuthenticationService {
     url: window.location.href,
     handleCodeInApp: true,
   };
+
+  login(email: string) {
+    if (this.auth.currentUser!.isAnonymous) {
+      this.createRealUser(email);
+    }
+    else {
+      const password = randomPassword({ length: 16, characters: upper });
+      return from(signInWithEmailAndPassword(this.auth, email, password!)).pipe(
+        tap(_ => {
+          this.log({ header: 'Success', body: `Logged in with ${email}` });
+          this.showPasswordModal(password);
+        }),
+        catchError(this.handleError<any>('login'))
+      );
+    }
+  }
 
   loginAnonymously() {
     return from(signInAnonymously(this.auth)).pipe(
@@ -106,5 +115,5 @@ export class AuthenticationService {
 export class PasswordModalContent {
   @Input() password: string = '';
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal) { }
 }
