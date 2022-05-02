@@ -1,4 +1,4 @@
-<ng-template #resultTemplateRef let-result="result">
+<!--<ng-template #resultTemplateRef let-result="result">
   <div class="row bg-light mb-3" *ngIf="shouldRender(result)">
     <ng-container *ngIf="isNotContainer(result)">
       <h4>
@@ -36,4 +36,5 @@
     <button class="btn btn-primary mr-3" disabled>Download (coming soon)</button>
     <button class="btn btn-primary" (click)="print()">Print</button>
   </div>
-</div>
+</div>-->
+{{ results | json }}

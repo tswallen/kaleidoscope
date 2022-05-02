@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './form/form.component';
+import { ResultsComponent } from './form/results/results.component';
 
 const formsRoutes: Routes = [
   {
-    path: ':id',
+    path: ':form',
     component: FormComponent,
+  },
+  {
+    path: ':form/results/:id',
+    component: ResultsComponent,
   },
 ];
 

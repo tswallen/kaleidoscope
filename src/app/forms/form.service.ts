@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { setDoc, doc, Firestore } from '@angular/fire/firestore';
+import { docData } from 'rxfire/firestore';
 import { catchError, from, Observable, of, tap } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { MessageInfo, MessageService } from '../message.service';
@@ -11,6 +12,11 @@ export class FormService {
 
   getForm(form: string) {
     return forms.find((f) => f.route === form);
+  }
+
+  getResults(id: string) {
+    const ref = doc(this.firestore, `forms/prodromal/submissions/${id}`);
+    return docData(ref);
   }
 
   submitForm(form: any, id: any) {

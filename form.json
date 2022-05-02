@@ -1,0 +1,651 @@
+[
+    {
+        "className": "row bg-primary text-light p-3",
+        "key": "personal",
+        "fieldGroup": [
+            {
+                "className": "section-label",
+                "template": "<div><strong>Personal information</strong></div>",
+                "id": "formly_8_template__0",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "templateOptions": {
+                    "disabled": false
+                },
+                "type": "formly-template",
+                "wrappers": []
+            },
+            {
+                "className": "section-description",
+                "template": "<div><p>This is not needed</p></div>",
+                "id": "formly_8_template__1",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "templateOptions": {
+                    "disabled": false
+                },
+                "type": "formly-template",
+                "wrappers": []
+            },
+            {
+                "key": "email",
+                "type": "input",
+                "templateOptions": {
+                    "type": "text",
+                    "label": "Email",
+                    "placeholder": "",
+                    "focus": false,
+                    "disabled": false
+                },
+                "id": "formly_8_input_email_2",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "wrappers": [
+                    "form-field"
+                ],
+                "_keyPath": {
+                    "key": "email",
+                    "path": [
+                        "email"
+                    ]
+                }
+            },
+            {
+                "key": "age",
+                "type": "input",
+                "templateOptions": {
+                    "type": "text",
+                    "label": "Age",
+                    "placeholder": "",
+                    "focus": false,
+                    "disabled": false
+                },
+                "id": "formly_8_input_age_3",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "wrappers": [
+                    "form-field"
+                ],
+                "_keyPath": {
+                    "key": "age",
+                    "path": [
+                        "age"
+                    ]
+                }
+            }
+        ],
+        "id": "formly_4__personal_0",
+        "hooks": {},
+        "modelOptions": {},
+        "validation": {
+            "messages": {}
+        },
+        "templateOptions": {
+            "disabled": false
+        },
+        "type": "formly-group",
+        "defaultValue": {},
+        "_keyPath": {
+            "key": "personal",
+            "path": [
+                "personal"
+            ]
+        },
+        "wrappers": []
+    },
+    {
+        "key": "zero",
+        "fieldGroup": [
+            {
+                "className": "row",
+                "key": "a",
+                "type": "radio",
+                "templateOptions": {
+                    "label": "I feel uninterested in the things I used to enjoy.",
+                    "required": true,
+                    "options": [
+                        {
+                            "value": true,
+                            "label": "True"
+                        },
+                        {
+                            "value": false,
+                            "label": "False"
+                        }
+                    ],
+                    "placeholder": "",
+                    "focus": false,
+                    "disabled": false,
+                    "formCheck": "custom",
+                    "_flatOptions": true
+                },
+                "id": "formly_11_radio_a_0",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "wrappers": [
+                    "form-field"
+                ],
+                "_keyPath": {
+                    "key": "a",
+                    "path": [
+                        "a"
+                    ]
+                }
+            },
+            {
+                "className": "row bg-light p-3",
+                "key": "b",
+                "type": "radio",
+                "templateOptions": {
+                    "label": "How much distress did you experience?",
+                    "required": true,
+                    "options": [
+                        {
+                            "value": 0,
+                            "label": "None"
+                        },
+                        {
+                            "value": 1,
+                            "label": "Mild"
+                        },
+                        {
+                            "value": 2,
+                            "label": "Moderate"
+                        },
+                        {
+                            "value": 3,
+                            "label": "Severe"
+                        }
+                    ],
+                    "placeholder": "",
+                    "focus": false,
+                    "disabled": false,
+                    "formCheck": "custom",
+                    "hidden": true,
+                    "_flatOptions": true
+                },
+                "id": "formly_11_radio_b_1",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "wrappers": [
+                    "form-field"
+                ],
+                "_keyPath": {
+                    "key": "b",
+                    "path": [
+                        "b"
+                    ]
+                },
+                "hide": true
+            },
+            {
+                "className": "row bg-primary text-light p-3",
+                "key": "feedback",
+                "fieldGroup": [
+                    {
+                        "key": "a",
+                        "type": "radio",
+                        "templateOptions": {
+                            "label": "Was this question helpful?",
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Yes"
+                                },
+                                {
+                                    "value": false,
+                                    "label": "No"
+                                }
+                            ],
+                            "placeholder": "",
+                            "focus": false,
+                            "disabled": false,
+                            "formCheck": "custom",
+                            "_flatOptions": true
+                        },
+                        "id": "formly_14_radio_a_0",
+                        "hooks": {},
+                        "modelOptions": {},
+                        "validation": {
+                            "messages": {}
+                        },
+                        "wrappers": [
+                            "form-field"
+                        ],
+                        "_keyPath": {
+                            "key": "a",
+                            "path": [
+                                "a"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "b",
+                        "type": "radio",
+                        "templateOptions": {
+                            "label": "How relevant was this question to you and your experiences?",
+                            "options": [
+                                {
+                                    "value": 1,
+                                    "label": "1"
+                                },
+                                {
+                                    "value": 2,
+                                    "label": "2"
+                                },
+                                {
+                                    "value": 3,
+                                    "label": "3"
+                                },
+                                {
+                                    "value": 4,
+                                    "label": "4"
+                                },
+                                {
+                                    "value": 5,
+                                    "label": "5"
+                                }
+                            ],
+                            "placeholder": "",
+                            "focus": false,
+                            "disabled": false,
+                            "formCheck": "custom",
+                            "_flatOptions": true
+                        },
+                        "id": "formly_14_radio_b_1",
+                        "hooks": {},
+                        "modelOptions": {},
+                        "validation": {
+                            "messages": {}
+                        },
+                        "wrappers": [
+                            "form-field"
+                        ],
+                        "_keyPath": {
+                            "key": "b",
+                            "path": [
+                                "b"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "c",
+                        "type": "input",
+                        "templateOptions": {
+                            "type": "text",
+                            "label": "If you could change this question, how would you do it?",
+                            "placeholder": "",
+                            "focus": false,
+                            "disabled": false
+                        },
+                        "id": "formly_14_input_c_2",
+                        "hooks": {},
+                        "modelOptions": {},
+                        "validation": {
+                            "messages": {}
+                        },
+                        "wrappers": [
+                            "form-field"
+                        ],
+                        "_keyPath": {
+                            "key": "c",
+                            "path": [
+                                "c"
+                            ]
+                        }
+                    }
+                ],
+                "id": "formly_11__feedback_2",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "templateOptions": {
+                    "disabled": false,
+                    "label": "",
+                    "placeholder": "",
+                    "focus": false,
+                    "hidden": true
+                },
+                "type": "formly-group",
+                "defaultValue": {},
+                "_keyPath": {
+                    "key": "feedback",
+                    "path": [
+                        "feedback"
+                    ]
+                },
+                "wrappers": [],
+                "hide": true
+            }
+        ],
+        "id": "formly_8__zero_1",
+        "hooks": {},
+        "modelOptions": {},
+        "validation": {
+            "messages": {}
+        },
+        "templateOptions": {
+            "disabled": false
+        },
+        "type": "formly-group",
+        "defaultValue": {},
+        "_keyPath": {
+            "key": "zero",
+            "path": [
+                "zero"
+            ]
+        },
+        "wrappers": []
+    },
+    {
+        "key": "one",
+        "fieldGroup": [
+            {
+                "className": "row",
+                "key": "a",
+                "type": "radio",
+                "templateOptions": {
+                    "label": "I often seem to live through events exactly as they happened before (déjà vu).",
+                    "required": true,
+                    "options": [
+                        {
+                            "value": true,
+                            "label": "True"
+                        },
+                        {
+                            "value": false,
+                            "label": "False"
+                        }
+                    ],
+                    "placeholder": "",
+                    "focus": false,
+                    "disabled": false,
+                    "formCheck": "custom",
+                    "_flatOptions": true
+                },
+                "id": "formly_17_radio_a_0",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "wrappers": [
+                    "form-field"
+                ],
+                "_keyPath": {
+                    "key": "a",
+                    "path": [
+                        "a"
+                    ]
+                }
+            },
+            {
+                "className": "row bg-light p-3",
+                "key": "b",
+                "type": "radio",
+                "templateOptions": {
+                    "label": "How much distress did you experience?",
+                    "required": true,
+                    "options": [
+                        {
+                            "value": 0,
+                            "label": "None"
+                        },
+                        {
+                            "value": 1,
+                            "label": "Mild"
+                        },
+                        {
+                            "value": 2,
+                            "label": "Moderate"
+                        },
+                        {
+                            "value": 3,
+                            "label": "Severe"
+                        }
+                    ],
+                    "placeholder": "",
+                    "focus": false,
+                    "disabled": false,
+                    "formCheck": "custom",
+                    "hidden": true,
+                    "_flatOptions": true
+                },
+                "id": "formly_17_radio_b_1",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "wrappers": [
+                    "form-field"
+                ],
+                "_keyPath": {
+                    "key": "b",
+                    "path": [
+                        "b"
+                    ]
+                },
+                "hide": true
+            },
+            {
+                "className": "row bg-primary text-light p-3",
+                "key": "feedback",
+                "fieldGroup": [
+                    {
+                        "key": "a",
+                        "type": "radio",
+                        "templateOptions": {
+                            "label": "Was this question helpful?",
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Yes"
+                                },
+                                {
+                                    "value": false,
+                                    "label": "No"
+                                }
+                            ],
+                            "placeholder": "",
+                            "focus": false,
+                            "disabled": false,
+                            "formCheck": "custom",
+                            "_flatOptions": true
+                        },
+                        "id": "formly_14_radio_a_0",
+                        "hooks": {},
+                        "modelOptions": {},
+                        "validation": {
+                            "messages": {}
+                        },
+                        "wrappers": [
+                            "form-field"
+                        ],
+                        "_keyPath": {
+                            "key": "a",
+                            "path": [
+                                "a"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "b",
+                        "type": "radio",
+                        "templateOptions": {
+                            "label": "How relevant was this question to you and your experiences?",
+                            "options": [
+                                {
+                                    "value": 1,
+                                    "label": "1"
+                                },
+                                {
+                                    "value": 2,
+                                    "label": "2"
+                                },
+                                {
+                                    "value": 3,
+                                    "label": "3"
+                                },
+                                {
+                                    "value": 4,
+                                    "label": "4"
+                                },
+                                {
+                                    "value": 5,
+                                    "label": "5"
+                                }
+                            ],
+                            "placeholder": "",
+                            "focus": false,
+                            "disabled": false,
+                            "formCheck": "custom",
+                            "_flatOptions": true
+                        },
+                        "id": "formly_14_radio_b_1",
+                        "hooks": {},
+                        "modelOptions": {},
+                        "validation": {
+                            "messages": {}
+                        },
+                        "wrappers": [
+                            "form-field"
+                        ],
+                        "_keyPath": {
+                            "key": "b",
+                            "path": [
+                                "b"
+                            ]
+                        }
+                    },
+                    {
+                        "key": "c",
+                        "type": "input",
+                        "templateOptions": {
+                            "type": "text",
+                            "label": "If you could change this question, how would you do it?",
+                            "placeholder": "",
+                            "focus": false,
+                            "disabled": false
+                        },
+                        "id": "formly_14_input_c_2",
+                        "hooks": {},
+                        "modelOptions": {},
+                        "validation": {
+                            "messages": {}
+                        },
+                        "wrappers": [
+                            "form-field"
+                        ],
+                        "_keyPath": {
+                            "key": "c",
+                            "path": [
+                                "c"
+                            ]
+                        }
+                    }
+                ],
+                "id": "formly_11__feedback_2",
+                "hooks": {},
+                "modelOptions": {},
+                "validation": {
+                    "messages": {}
+                },
+                "templateOptions": {
+                    "disabled": false,
+                    "label": "",
+                    "placeholder": "",
+                    "focus": false,
+                    "hidden": true
+                },
+                "type": "formly-group",
+                "defaultValue": {},
+                "_keyPath": {
+                    "key": "feedback",
+                    "path": [
+                        "feedback"
+                    ]
+                },
+                "wrappers": [],
+                "hide": true
+            }
+        ],
+        "id": "formly_14__one_2",
+        "hooks": {},
+        "modelOptions": {},
+        "validation": {
+            "messages": {}
+        },
+        "templateOptions": {
+            "disabled": false
+        },
+        "type": "formly-group",
+        "defaultValue": {},
+        "_keyPath": {
+            "key": "one",
+            "path": [
+                "one"
+            ]
+        },
+        "wrappers": []
+    },
+    {
+        "className": "row bg-primary text-light p-3",
+        "key": "feedbackConsent",
+        "type": "radio",
+        "templateOptions": {
+            "label": "Would you please be able to provide feedback on how helpful you found these questions to be?",
+            "required": true,
+            "options": [
+                {
+                    "value": true,
+                    "label": "Yes"
+                },
+                {
+                    "value": false,
+                    "label": "No"
+                }
+            ],
+            "placeholder": "",
+            "focus": false,
+            "disabled": false,
+            "formCheck": "custom",
+            "_flatOptions": true
+        },
+        "id": "formly_20_radio_feedbackConsent_3",
+        "hooks": {},
+        "modelOptions": {},
+        "validation": {
+            "messages": {}
+        },
+        "wrappers": [
+            "form-field"
+        ],
+        "_keyPath": {
+            "key": "feedbackConsent",
+            "path": [
+                "feedbackConsent"
+            ]
+        }
+    }
+]

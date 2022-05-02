@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions } from '@ngx-formly/core';
 import { FormService } from '../form.service';
@@ -15,11 +15,11 @@ export class FormComponent implements OnInit {
   formGroup = new FormGroup({});
   model = {};
   options: FormlyFormOptions = {};
-  submitted!: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private formService: FormService
+    private formService: FormService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -27,15 +27,16 @@ export class FormComponent implements OnInit {
   }
 
   getFields(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.form = this.formService.getForm(id!)!;
+    const form = this.route.snapshot.paramMap.get('form');
+    this.form = this.formService.getForm(form!)!;
   }
 
   onSubmit() {
     if (this.formGroup.valid) {
+      const form = this.route.snapshot.paramMap.get('form');
       const id = new Date().getTime() + Math.floor(Math.random() * (10000 - 0) + 0);
       this.formService.submitForm(this.model, id).subscribe();
-      this.submitted = true;
+      this.router.navigate(['forms', form, 'results', id]);
     }
   }
 }

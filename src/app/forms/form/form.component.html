@@ -1,31 +1,19 @@
-<ng-container *ngIf="!submitted">
-  <div class="container">
-    <div class="py-3 text-center">
-      <h5>{{ form.title }}</h5>
-      <p>{{form.description}}</p>
-    </div>
-
-    <!-- TODO: Add timer and completion -->
-
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-      <formly-form
-        [form]="formGroup"
-        [model]="model"
-        [fields]="form.fields"
-        [options]="options"
-      ></formly-form>
-
-      <div class="py-3 d-flex justify-content-end">
-        <button class="btn btn-danger mr-3" type="reset">Reset</button>
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!formGroup.valid"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
+<div class="container">
+  <div class="py-3 text-center">
+    <h5>{{ form.title }}</h5>
+    <p>{{form.description}}</p>
   </div>
-</ng-container>
-<app-results *ngIf="submitted" [results]="form.fields"></app-results>
+
+  <!-- TODO: Add timer and completion -->
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <formly-form [form]="formGroup" [model]="model" [fields]="form.fields" [options]="options"></formly-form>
+
+    <div class="py-3 d-flex justify-content-end">
+      <button class="btn btn-danger mr-3" type="reset">Reset</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!formGroup.valid">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
