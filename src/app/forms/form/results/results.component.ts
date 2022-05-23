@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { eachDeep } from 'deepdash-es/standalone';
+import { IIterateeContext } from 'deepdash-es/IIterateeContext';
+import { clone, each, filter, find, flatMapDeep, indexOf, isEmpty, isObject, keys, mapKeys, mapValues } from 'lodash';
 import { FormService } from '../../form.service';
 
 @Component({
@@ -11,6 +14,7 @@ import { FormService } from '../../form.service';
 export class ResultsComponent implements OnInit {
   @Input() results!: any;
   @Input() form!: FormlyFieldConfig[];
+  path: String[] = [];
 
   ngOnInit() { }
 
@@ -29,11 +33,20 @@ export class ResultsComponent implements OnInit {
   }
 
   populateForm() {
-    this.form.forEach(field => {
-      console.log(field.key);
-      const value = this.findValue(field.key as string);
-      console.log(value);
-    })
+    // TODO: why is this running twice?
+    eachDeep(this.results, (value, key, parentValue, context: IIterateeContext) => {
+      if (!isObject(value)) {
+        //console.log();
+        //console.log('Found value!');
+        //console.log(key, value, parentValue);
+        //console.log(indexOf(keys(parentValue), key));
+        //console.log(value);
+        //console.log(context.path);
+        eachDeep(this.form, (value, key, parentValue, ctx: IIterateeContext) => {
+          //console.log(key, ctx.path);
+        });
+      }
+    });
   }
 
   shouldRender(result: FormlyFieldConfig) {
