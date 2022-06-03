@@ -5,8 +5,8 @@
     <button class="btn btn-outline-light" *ngIf="!(user | async)" (click)="logIn()">Login</button>
   </div>
 </nav>
-<div class="row bg-secondary">
+<!-- <div class="row bg-secondary">
   <code class="text-light">User: {{ (user | async)?.uid }}</code>
-</div>
+</div> -->
 <router-outlet></router-outlet>
 <kaleidoscope-messages></kaleidoscope-messages>

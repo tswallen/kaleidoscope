@@ -4,8 +4,9 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 
 const toWords = new ToWords();
 
+/* TODO: only show if user has not entered personal details */
 const personal: FormlyFieldConfig = {
-  className: 'row bg-primary text-light p-3',
+  className: 'row bg-info text-light p-3 rounded',
   key: 'personal',
   fieldGroup: [
     {
@@ -13,8 +14,8 @@ const personal: FormlyFieldConfig = {
       template: '<div><strong>Personal information</strong></div>',
     },
     {
-      className: 'section-description',
-      template: '<div><p>This is not needed</p></div>',
+      className: 'section-info',
+      template: '<div class="alert alert-info" role="alert">This information will remain private. Learn more about how K manages your privacy</div>',
     },
     {
       key: 'email',
@@ -36,7 +37,7 @@ const personal: FormlyFieldConfig = {
 };
 
 const feedbackConsent: FormlyFieldConfig = {
-  className: 'row bg-primary text-light p-3',
+  className: 'row bg-primary text-light p-3 rounded',
   key: 'feedbackConsent',
   type: 'radio',
   templateOptions: {
@@ -51,7 +52,7 @@ const feedbackConsent: FormlyFieldConfig = {
 };
 
 const feedbackQuestion: FormlyFieldConfig = {
-  className: 'row bg-primary text-light p-3',
+  className: 'row bg-primary text-light p-3 rounded',
   key: 'feedback',
   fieldGroup: [
     {
@@ -137,7 +138,7 @@ export const forms: Form[] = [
             },
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'b',
             type: 'radio',
             templateOptions: {
@@ -359,7 +360,7 @@ export const forms: Form[] = [
             },
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'b',
             type: 'radio',
             templateOptions: {
@@ -376,7 +377,7 @@ export const forms: Form[] = [
             hideExpression: '!model.a',
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'c',
             type: 'radio',
             templateOptions: {
@@ -394,7 +395,7 @@ export const forms: Form[] = [
             hideExpression: '!model.a',
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'd',
             type: 'radio',
             templateOptions: {
@@ -475,7 +476,7 @@ export const forms: Form[] = [
             },
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'b',
             type: 'radio',
             templateOptions: {
@@ -492,7 +493,7 @@ export const forms: Form[] = [
             hideExpression: '!model.a',
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'c',
             type: 'radio',
             templateOptions: {
@@ -510,7 +511,7 @@ export const forms: Form[] = [
             hideExpression: '!model.a',
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'd',
             type: 'radio',
             templateOptions: {
@@ -561,7 +562,7 @@ export const forms: Form[] = [
             },
           },
           {
-            className: 'row bg-light p-3',
+            className: 'row bg-light p-3 rounded',
             key: 'b',
             type: 'radio',
             templateOptions: {

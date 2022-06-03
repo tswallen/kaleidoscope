@@ -37,6 +37,7 @@ export class FormComponent implements OnInit {
       const id = new Date().getTime() + Math.floor(Math.random() * (10000 - 0) + 0);
       this.formService.submitForm(this.model, id).subscribe();
       this.router.navigate(['forms', form, 'results', id]);
+      this.formGroup.reset();
     }
   }
 }

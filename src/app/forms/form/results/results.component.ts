@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { eachDeep, mapKeysDeep } from 'deepdash-es/standalone';
+import { mapKeysDeep } from 'deepdash-es/standalone';
 import { IIterateeContext } from 'deepdash-es/IIterateeContext';
-import { clone, each, filter, find, findKey, flatMapDeep, has, indexOf, isArray, isEmpty, isObject, keys, mapKeys, mapValues, times } from 'lodash';
+import { clone, each, find, has, isObject } from 'lodash';
 import { FormService } from '../../form.service';
 
 @Component({
@@ -16,11 +16,11 @@ export class ResultsComponent implements OnInit {
   @Input() form!: FormlyFieldConfig[];
   path: String[] = [];
 
-  ngOnInit() { }
-
-  constructor(private route: ActivatedRoute, private formService: FormService) {
+  ngOnInit() {
     this.getResults();
   }
+
+  constructor(private route: ActivatedRoute, private formService: FormService) {}
 
   getResults(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
@@ -46,11 +46,12 @@ export class ResultsComponent implements OnInit {
           f = f$.fieldGroup;
         } else {
           key = f$.templateOptions.label;
+          let fc: FormlyFieldConfig = f$ as FormlyFieldConfig;
+          fc.formControl?.setValue(value);
         }
       });
       return key;
     }, { pathFormat: 'array'});
-    console.log(this.results);
   }
 
 
@@ -68,9 +69,9 @@ export class ResultsComponent implements OnInit {
     return (
       result.templateOptions &&
       result.templateOptions.label &&
-      result.formControl &&
+      result.formControl //&&
       /* TODO: handle empty answers */
-      result.formControl.touched
+      //result.formControl.touched
     );
   }
 
@@ -78,7 +79,4 @@ export class ResultsComponent implements OnInit {
     window.print();
   }
 
-  private findValue(key: string) {
-    return this.results[key];
-  }
 }
