@@ -7,12 +7,13 @@ import { MessageInfo, MessageService } from '../message.service';
 import { randomPassword, upper } from 'secure-random-password';
 import { signOut } from '@firebase/auth';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UsersService } from '../users/users.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   public readonly user: Observable<User | null> = EMPTY;
 
-  constructor(@Optional() private auth: Auth, private messageService: MessageService, private modalService: NgbModal) {
+  constructor(@Optional() private auth: Auth, private messageService: MessageService, private usersService: UsersService, private modalService: NgbModal) {
     if (auth) {
       this.user = authState(this.auth);
     }
@@ -29,6 +30,7 @@ export class AuthenticationService {
           this.log({ header: 'Success', body: `Signed up with ${email}` });
           this.showPasswordModal(password);
         }),
+        tap(_ => console.log(_)),
         catchError(this.handleError<any>('signUp'))
       );
     }
@@ -37,6 +39,7 @@ export class AuthenticationService {
   loginAnonymously() {
     return from(signInAnonymously(this.auth)).pipe(
       tap(_ => this.log({ header: 'Success', body: 'Logged in anonymously' })),
+      tap(credential => this.usersService.getUser(credential?.user.uid).subscribe(data => console.log(data))),
       catchError(this.handleError<any>('loginAnonymously'))
     );
   }
