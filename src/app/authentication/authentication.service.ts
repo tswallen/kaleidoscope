@@ -38,8 +38,8 @@ export class AuthenticationService {
 
   loginAnonymously() {
     return from(signInAnonymously(this.auth)).pipe(
-      tap(_ => this.log({ header: 'Success', body: 'Logged in anonymously' })),
-      tap(credential => this.usersService.getUser(credential?.user.uid).subscribe(data => console.log(data))),
+      tap(credential => this.usersService.addUser({ test: 'test' }, credential?.user.uid).subscribe(_ =>
+        this.log({ header: 'Success', body: 'Logged in anonymously' }))),
       catchError(this.handleError<any>('loginAnonymously'))
     );
   }

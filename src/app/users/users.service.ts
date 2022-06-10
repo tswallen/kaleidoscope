@@ -9,11 +9,14 @@ import { catchError, from, Observable, of, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class UsersService {
+  user;
 
   constructor(private firestore: Firestore, private messageService: MessageService) { }
 
-  addUser(form: any, uid: any) {
-    return from(setDoc(doc(this.firestore, 'users', uid.toString()), {data: JSON.stringify(form)})).pipe(
+  addUser(user: any, uid: any) {
+    this.user = user;
+    // TODO: make the backend do this
+    return from(setDoc(doc(this.firestore, 'users', uid.toString()), user)).pipe(
       tap(_ => this.log({header: 'Success', body: 'User has been added!'})),
       catchError(this.handleError<any>(`addUser id=${uid}`))
     );
