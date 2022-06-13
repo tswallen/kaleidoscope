@@ -10,7 +10,7 @@ import { AuthenticationService } from './authentication/authentication.service';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  user: Observable<User | null> = EMPTY;
+  user: Observable<any> = EMPTY;
 
   constructor(private authenticationService: AuthenticationService) {
     this.user = authenticationService.user;

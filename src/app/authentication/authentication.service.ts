@@ -11,7 +11,7 @@ import { UsersService } from '../users/users.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  public readonly user: Observable<User | null> = EMPTY;
+  public readonly user: Observable<any> = EMPTY;
 
   constructor(@Optional() private auth: Auth, private messageService: MessageService, private usersService: UsersService, private modalService: NgbModal) {
     if (auth) {
@@ -38,7 +38,7 @@ export class AuthenticationService {
 
   loginAnonymously() {
     return from(signInAnonymously(this.auth)).pipe(
-      tap(credential => this.usersService.addUser({ test: 'test' }, credential?.user.uid).subscribe(_ =>
+      tap(credential => this.usersService.addUser({ forms: ['prodromal'] }, credential?.user.uid).subscribe(_ =>
         this.log({ header: 'Success', body: 'Logged in anonymously' }))),
       catchError(this.handleError<any>('loginAnonymously'))
     );
