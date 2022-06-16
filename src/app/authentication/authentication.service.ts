@@ -1,7 +1,7 @@
 import { Component, Injectable, Input, Optional } from '@angular/core';
 
 import { Auth, authState, createUserWithEmailAndPassword, EmailAuthProvider, linkWithCredential, sendSignInLinkToEmail, signInAnonymously, signInWithEmailAndPassword, User } from '@angular/fire/auth';
-import { catchError, EMPTY, from, Observable, of, tap } from 'rxjs';
+import { catchError, EMPTY, from, merge, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MessageInfo, MessageService } from '../message.service';
 import { randomPassword, upper } from 'secure-random-password';
@@ -38,9 +38,11 @@ export class AuthenticationService {
 
   loginAnonymously() {
     return from(signInAnonymously(this.auth)).pipe(
-      tap(credential => this.usersService.addUser({ forms: ['prodromal'] }, credential?.user.uid).subscribe(_ =>
-        this.log({ header: 'Success', body: 'Logged in anonymously' }))),
-      catchError(this.handleError<any>('loginAnonymously'))
+      tap(_ => this.log({ header: 'Success', body: 'Logged in anonymously' })),
+      catchError(this.handleError<any>('loginAnonymously')),
+      switchMap(credential => {
+        return this.usersService.addUser(credential?.user.uid);
+      })
     );
   }
 

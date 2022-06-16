@@ -1,8 +1,8 @@
 import { Injectable, Optional } from '@angular/core';
-import { Firestore, setDoc } from '@angular/fire/firestore';
+import { arrayUnion, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
 import { MessageInfo, MessageService } from '../message.service';
 import { docData } from 'rxfire/firestore';
-import { doc } from '@firebase/firestore';
+import { doc, FieldValue } from '@firebase/firestore';
 import { catchError, from, Observable, of, tap } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
 import { assign, merge } from 'lodash';
@@ -14,7 +14,8 @@ export class UsersService {
 
   constructor(@Optional() private auth: Auth, private firestore: Firestore, private messageService: MessageService) { }
 
-  addUser(user: any, uid: any) {
+  addUser(uid: any) {
+    const user = {forms: []};
     // TODO: make the backend do this
     return from(setDoc(doc(this.firestore, 'users', uid.toString()), user)).pipe(
       tap(_ => this.log({header: 'Success', body: 'User has been added!'})),
@@ -26,6 +27,10 @@ export class UsersService {
   getUser(uid: string) {
     const ref = doc(this.firestore, `users/${uid}`);
     return docData(ref);
+  }
+
+  addCompletedForm(uid: string, form: string) {
+    return from(updateDoc(doc(this.firestore, 'users', uid.toString()), {forms: arrayUnion(form)}));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
