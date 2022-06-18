@@ -35,7 +35,7 @@ export class FormComponent implements OnInit {
     if (this.formGroup.valid) {
       const form = this.route.snapshot.paramMap.get('form');
       const id = new Date().getTime() + Math.floor(Math.random() * (10000 - 0) + 0);
-      this.formService.submitForm(this.model, form, id)//.subscribe();
+      this.formService.submitForm(this.model, form, id);
       this.router.navigate(['forms', form, 'results', id]);
       this.formGroup.reset();
     }

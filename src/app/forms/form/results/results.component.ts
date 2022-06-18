@@ -26,7 +26,7 @@ export class ResultsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id')!;
     const form = this.route.snapshot.paramMap.get('form')!;
     this.form = this.formService.getForm(form)?.fields!;
-    this.formService.getResults(id).subscribe(results => {
+    this.formService.getResults(id, form).subscribe(results => {
       this.results = JSON.parse(results['data']);
       this.populateForm();
     });

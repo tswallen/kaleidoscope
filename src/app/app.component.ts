@@ -17,10 +17,10 @@ export class AppComponent {
   }
 
   logIn() {
-    this.authenticationService.loginAnonymously();
+    this.authenticationService.loginAnonymously().subscribe();
   }
 
   logOut() {
-    this.authenticationService.logout();
+    this.authenticationService.logout().subscribe();
   }
 }

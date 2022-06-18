@@ -19,12 +19,24 @@ export class AuthenticationService {
     }
   }
 
-  signUp(email: string) {
+  /**
+   * Signs user up. If the user is already anonymous, we link their email to the anonymous account. If there is no user, one is created with a random password.
+   * @param email 
+   * @returns 
+   */
+  signUp(email: string): Observable<any> {
+    const password = randomPassword({ length: 16, characters: upper });
     if (this.auth.currentUser && this.auth.currentUser.isAnonymous) {
-      return this.linkEmail(email);
+      const credential = EmailAuthProvider.credential(email, password);
+    return from(linkWithCredential(this.auth.currentUser!, credential)).pipe(
+      tap(_ => {
+        this.log({ header: 'Success', body: `User created with ${email}` });
+        this.showPasswordModal(password);
+      }),
+      catchError(this.handleError<any>(`linkEmail email=${email}`))
+    );
     }
     else {
-      const password = randomPassword({ length: 16, characters: upper });
       return from(createUserWithEmailAndPassword(this.auth, email, password!)).pipe(
         tap(_ => {
           this.log({ header: 'Success', body: `Signed up with ${email}` });
@@ -36,32 +48,31 @@ export class AuthenticationService {
     }
   }
 
-  loginAnonymously() {
+  /**
+   * Logs in user anonymously
+   * @returns 
+   */
+  loginAnonymously(): Observable<any> {
     return from(signInAnonymously(this.auth)).pipe(
       tap(_ => this.log({ header: 'Success', body: 'Logged in anonymously' })),
       catchError(this.handleError<any>('loginAnonymously')),
       switchMap(credential => {
-        return this.usersService.addUser(credential?.user.uid);
+        // TODO: make this "getUser" instead of addUser, addUser is invoked by getUser if it doesn't get a user.
+        //return this.usersService.addUser(credential?.user.uid);
+        return this.usersService.getUser(credential?.user.uid);
       })
     );
   }
 
-  login(email: string) {
+  /**
+   * Triggers an OTP login
+   * @param email 
+   * @returns 
+   */
+  login(email: string): Observable<any> {
     return from(sendSignInLinkToEmail(this.auth, email, environment.actionCodeSettings)).pipe(
       tap(_ => this.log({ header: 'Success', body: `An email was sent to ${email}` })),
       catchError(this.handleError<any>(`login email=${email}`))
-    );
-  }
-
-  linkEmail(email: string) {
-    const password = randomPassword({ length: 16, characters: upper });
-    const credential = EmailAuthProvider.credential(email, password);
-    return from(linkWithCredential(this.auth.currentUser!, credential)).pipe(
-      tap(_ => {
-        this.log({ header: 'Success', body: `User created with ${email}` });
-        this.showPasswordModal(password);
-      }),
-      catchError(this.handleError<any>(`linkEmail email=${email}`))
     );
   }
 
@@ -77,6 +88,7 @@ export class AuthenticationService {
     modalRef.componentInstance.password = password;
   }
 
+  // TODO: move this to the message service
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 

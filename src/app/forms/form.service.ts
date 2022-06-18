@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import { setDoc, doc, Firestore } from '@angular/fire/firestore';
 import { docData } from 'rxfire/firestore';
-import { catchError, from, Observable, of, tap } from 'rxjs';
+import { catchError, from, Observable, of, switchMap, tap } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { MessageInfo, MessageService } from '../message.service';
 import { UsersService } from '../users/users.service';
@@ -15,52 +16,56 @@ export class FormService {
     return forms.find((f) => f.route === form);
   }
 
-  getResults(id: string) {
-    const ref = doc(this.firestore, `forms/prodromal/submissions/${id}`);
+  getResults(id: string, formName: any) {
+    const ref = doc(this.firestore, `forms/${formName}/submissions/${id}`);
     return docData(ref);
   }
 
   submitForm(form: any, formName: any, id: any) {
-    this.handleUser(form.personal!.email!, form, formName, id);
-  }
-
-  handleUser(email: string, form: any, formName: any, id: any) {
-    this.authenticationService.user.subscribe(user => {
-
-      if (user && user.uid) {
-        this.usersService.addCompletedForm(user.uid, formName);
+    //THIS IS FUCKED
+    const email = form.personal!.email!;
+      this.authenticationService.user.pipe(switchMap(user => {
+      const isLoggedIn = user && user.uid;
+      if (isLoggedIn) { // If logged in, add submission
         return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
           tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
-          catchError(this.handleError<any>(`submitForm id=${id}`))
-        );
+          catchError(this.handleError<any>(`submitForm id=${id}`))).pipe(
+            // Make sure submission is recorded in users table
+            switchMap(_ => { return this.usersService.addCompletedForm(user.uid, formName) })
+          );
       }
       else {
-        if (!email) {
-          this.authenticationService.loginAnonymously().subscribe(_ => //{if (user.forms) {this.usersService.addCompletedForm(user.uid, formName)}}
-          {
-            this.usersService.addCompletedForm(user.uid, formName);
-            return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
-              tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
-              catchError(this.handleError<any>(`submitForm id=${id}`))
-            );
-          }
+        if (!email) { // If user is anonymous
+          return this.authenticationService.loginAnonymously().pipe(
+            switchMap(_ => {
+              return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
+                tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
+                catchError(this.handleError<any>(`submitForm id=${id}`))).pipe(
+                  // Make sure submission is recorded in users table
+                  switchMap(_ => { return this.usersService.addCompletedForm(user.uid, formName) })
+                )
+            })
           );
         }
-        else {
-          this.authenticationService.signUp(email).subscribe(_ => {
-            this.usersService.addCompletedForm(user.uid, formName);
-            return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
-              tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
-              catchError(this.handleError<any>(`submitForm id=${id}`))
-            );
-          });
+        else { // If user is not anoymous (has provided email)
+          return this.authenticationService.signUp(email).pipe(
+            switchMap(_ => {
+              return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
+                tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
+                catchError(this.handleError<any>(`submitForm id=${id}`))).pipe(
+                  // Make sure submission is recorded in users table
+                  switchMap(_ => { return this.usersService.addCompletedForm(user.uid, formName) })
+                )
+            })
+          );
         }
       }
-    })
+    })).subscribe();
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      alert('Error')
 
       console.error(error);
 

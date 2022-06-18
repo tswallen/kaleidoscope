@@ -6,6 +6,7 @@ import { doc, FieldValue } from '@firebase/firestore';
 import { catchError, from, Observable, of, tap } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
 import { assign, merge } from 'lodash';
+import { FirebaseError } from '@angular/fire/app';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,10 @@ export class UsersService {
 
   getUser(uid: string) {
     const ref = doc(this.firestore, `users/${uid}`);
-    return docData(ref);
+    return docData(ref).pipe(
+      tap(_ => this.log({header: 'Success', body: `Got user: ${uid}`})),
+      catchError(this.handleError<any>(`getUser id=${uid}`))
+    );
   }
 
   addCompletedForm(uid: string, form: string) {
@@ -35,6 +39,7 @@ export class UsersService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      alert('errpr')
 
       console.error(error);
 
