@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
+import { Auth } from '@angular/fire/auth';
 import { setDoc, doc, Firestore } from '@angular/fire/firestore';
 import { docData } from 'rxfire/firestore';
-import { catchError, from, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, delay, from, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { MessageInfo, MessageService } from '../message.service';
 import { UsersService } from '../users/users.service';
@@ -10,7 +11,7 @@ import { forms } from './forms';
 
 @Injectable({ providedIn: 'root' })
 export class FormService {
-  constructor(private firestore: Firestore, private messageService: MessageService, private usersService: UsersService, private authenticationService: AuthenticationService) { }
+  constructor(@Optional() private auth: Auth, private firestore: Firestore, private messageService: MessageService, private usersService: UsersService, private authenticationService: AuthenticationService) { }
 
   getForm(form: string) {
     return forms.find((f) => f.route === form);
@@ -21,9 +22,36 @@ export class FormService {
     return docData(ref);
   }
 
+
+
   submitForm(form: any, formName: any, id: any) {
-    //THIS IS FUCKED
     const email = form.personal!.email!;
+    if (!email) { // If user is anonymous
+      return this.authenticationService.loginAnonymously().pipe(
+        switchMap(_ => {
+          return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
+            tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
+            catchError(this.handleError<any>(`submitForm id=${id}`)))
+        }),
+        
+      ).pipe(// Make sure submission is recorded in users table !!! MAYBE THIS IS RUNNING BEFORE THE USER DOCUMENT IS CREATED
+      mergeMap(res => { console.log(res); return this.usersService.addCompletedForm(this.auth.currentUser?.uid as string, formName) }));
+    }
+  }
+
+
+  submitForm2(form: any, formName: any, id: any) {
+    const email = form.personal!.email!;
+    if (!email) { // If user is anonymous
+      return this.authenticationService.loginAnonymously().pipe(
+        switchMap(_ => {
+          return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
+            tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
+            catchError(this.handleError<any>(`submitForm id=${id}`))).pipe(switchMap(_ => { return this.usersService.addCompletedForm(this.auth?.currentUser?.uid!, formName) }))
+        })
+      );
+    }
+    return;
       this.authenticationService.user.pipe(switchMap(user => {
       const isLoggedIn = user && user.uid;
       if (isLoggedIn) { // If logged in, add submission
@@ -41,8 +69,9 @@ export class FormService {
               return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
                 tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
                 catchError(this.handleError<any>(`submitForm id=${id}`))).pipe(
+                  switchMap(_ => {return this.usersService.getUser(this.auth.currentUser?.uid as string);}),
                   // Make sure submission is recorded in users table
-                  switchMap(_ => { return this.usersService.addCompletedForm(user.uid, formName) })
+                  //switchMap(_ => { return this.usersService.addCompletedForm(user.uid, formName) })
                 )
             })
           );
