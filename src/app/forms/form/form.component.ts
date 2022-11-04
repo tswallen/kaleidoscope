@@ -6,6 +6,7 @@ import { FormService } from '../form.service';
 import { Form } from '../form';
 import { UsersService } from 'src/app/users/users.service';
 import { Auth } from '@angular/fire/auth';
+import {catchError, take, throwError} from "rxjs";
 
 @Component({
   selector: 'app-form',
@@ -39,10 +40,18 @@ export class FormComponent implements OnInit {
     if (this.formGroup.valid) {
       const form = this.route.snapshot.paramMap.get('form');
       const id = new Date().getTime() + Math.floor(Math.random() * (10000 - 0) + 0);
-      this.formService.submitForm(this.model, form, id)?.subscribe(_ => this.usersService.addCompletedForm(this.auth.currentUser?.uid as string, form as string));
-      this.router.navigate(['forms', form, 'results', id]);
-      this.formGroup.reset();
-    };
+      this.formService.submitForm(this.model, form, id).pipe(
+        take(1),
+        catchError((err => {
+          console.log(err);
+          return throwError(err)
+        }))
+      ).subscribe(_ => {
+        this.usersService.addCompletedForm(this.auth.currentUser?.uid as string, form as string)
+        this.router.navigate(['forms', form, 'results', id]);
+        this.formGroup.reset();
+      });
+    }
 
     }
   }

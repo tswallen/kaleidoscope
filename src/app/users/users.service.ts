@@ -1,11 +1,11 @@
-import { Injectable, Optional } from '@angular/core';
-import { arrayUnion, Firestore, setDoc, updateDoc, FieldValue } from '@angular/fire/firestore';
-import { MessageInfo, MessageService } from '../message.service';
-import { docData } from 'rxfire/firestore';
-import { doc } from '@firebase/firestore';
-import { catchError, EMPTY, from, iif, mergeMap, Observable, of, tap } from 'rxjs';
-import { Auth } from '@angular/fire/auth';
-import { assign, cloneDeep } from 'lodash';
+import {Injectable, Optional} from '@angular/core';
+import {arrayUnion, FieldValue, Firestore, setDoc, updateDoc} from '@angular/fire/firestore';
+import {MessageInfo, MessageService} from '../message.service';
+import {docData} from 'rxfire/firestore';
+import {doc} from '@firebase/firestore';
+import {catchError, from, Observable, of, switchMap, tap} from 'rxjs';
+import {Auth} from '@angular/fire/auth';
+import {assign, cloneDeep} from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,13 @@ export class UsersService {
   getUser(uid: string) {
     const ref = doc(this.firestore, `users/${uid}`);
     return docData(ref).pipe(
-      mergeMap(d => iif(() => d == undefined, this.addUser(uid), EMPTY)),
+      switchMap(d => {
+        if (d !== undefined) {
+          return of(null)
+        } else {
+          return this.addUser(uid)
+        }
+      }),
       tap(_ => this.log({header: 'Success', body: 'Got user!'})),
       catchError(this.handleError<any>(`getUser id=${uid}`))
     );
