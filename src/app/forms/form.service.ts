@@ -1,13 +1,12 @@
-import { Injectable, Optional } from '@angular/core';
-import { FirebaseError } from '@angular/fire/app';
-import { Auth } from '@angular/fire/auth';
-import { setDoc, doc, Firestore } from '@angular/fire/firestore';
-import { docData } from 'rxfire/firestore';
-import { catchError, delay, from, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { MessageInfo, MessageService } from '../message.service';
-import { UsersService } from '../users/users.service';
-import { forms } from './forms';
+import {Injectable, Optional} from '@angular/core';
+import {Auth} from '@angular/fire/auth';
+import {doc, Firestore, setDoc} from '@angular/fire/firestore';
+import {docData} from 'rxfire/firestore';
+import {catchError, from, Observable, of, switchMap, tap} from 'rxjs';
+import {AuthenticationService} from '../authentication/authentication.service';
+import {MessageInfo, MessageService} from '../message.service';
+import {UsersService} from '../users/users.service';
+import {forms} from './forms';
 
 @Injectable({ providedIn: 'root' })
 export class FormService {
@@ -25,17 +24,23 @@ export class FormService {
 
 
   submitForm(form: any, formName: any, id: any) {
-    const email = form.personal!.email!;
+    const email = form.personal?.email;
     if (!email) { // If user is anonymous
       return this.authenticationService.loginAnonymously().pipe(
         switchMap(_ => {
-          return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) })).pipe(
+          return from(setDoc(doc(this.firestore, `forms/${formName}/submissions`, id.toString()), { data: JSON.stringify(form) }))
+            .pipe(
             tap(_ => this.log({ header: 'Success', body: 'Your form was submitted!' })),
             catchError(this.handleError<any>(`submitForm id=${id}`)))
         }),
-        
-      ).pipe(// Make sure submission is recorded in users table !!! MAYBE THIS IS RUNNING BEFORE THE USER DOCUMENT IS CREATED
-      mergeMap(res => { console.log(res); return this.usersService.addCompletedForm(this.auth.currentUser?.uid as string, formName) }));
+        switchMap(res => {
+          console.log('About to save user info', res);
+          return this.usersService.addCompletedForm(this.auth.currentUser?.uid as string, formName).pipe(
+          )
+        })
+      )
+    } else {
+      return of(null)
     }
   }
 
